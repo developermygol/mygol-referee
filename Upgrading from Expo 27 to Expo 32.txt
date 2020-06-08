@@ -1,0 +1,146 @@
+Upgrading from Expo 27 to Expo 32
+=================================
+
+Upgrade expo packages following instructions: 
+
+	react-test-renderer: 16.5.0
+	jest-expo: 32.0.0
+	expo: 32.0.0
+	react: 16.5.0
+	react-native: https://....32.0.0.tar.gz
+	"react-navigation": "~3.0.9",
+
+
+Mobx
+====
+
+Change devDependencies (package.json) to: 
+
+	"@babel/plugin-proposal-class-properties": "^7.1.0",
+    "@babel/plugin-proposal-decorators": "^7.1.2",
+    "babel-jest": "23.6.0",
+    "jest-expo": "32.0.0",
+    "metro-react-native-babel-preset": "0.48.0",
+    "react-test-renderer": "16.5.0",
+    "react-native-scripts": "^1.14.0"
+
+
+vector-icons
+============
+
+Add the package @expo/vector-icons to package.json (dependencies)
+
+	"@expo/vector-icons": "^9.0.0",
+
+
+react-native-scrollable-tab-view
+================================
+
+Upgrade to 0.10.0 in package.json
+
+	"react-native-scrollable-tab-view": "^0.10.0",
+
+
+allowTextFontScaling is not an object
+=====================================
+
+Error: undefined is not an object(evaluating '_reactNative.Text.defaultProps.allowFontScaling=_AppConfig.default.allowTextFontScaling')
+
+Fix by replacing with: 
+
+	// Text.defaultProps.allowFontScaling = AppConfig.allowTextFontScaling  // WRONG!
+	Text.allowFontScaling = AppConfig.allowTextFontScaling  // Working!
+
+Deprecated
+==========
+
+	Expo.DangerZone.Localization.getCurrentLocaleAsync() is deprecated. Use `Expo.Localization.locale` instead.
+
+
+
+
+
+
+
+undefined is not an object (evaluating '_expo2.default.KeepAwake')
+==================================================================
+
+[https://github.com/expo/expo/issues/3152]
+
+	Looks like this was related to react-native-scripts for me. I fixed it by following the instructions after running npm start.
+
+	Upgrading your project to use Expo CLI:
+	Make these changes to package.json:
+
+	Replace 'react-native-scripts' with 'expo' in the 'scripts' config.
+	Example:
+	"scripts": {
+	"start": "expo start",
+	"eject": "expo eject",
+	"android": "expo start --android",
+	"ios": "expo start --ios",
+	"test": "jest"
+	}
+	Remove react-native-scripts from devDependencies.
+	That's all! Expo CLI will install automatically when you run npm start.
+
+	Change the main key to node_modules/expo/AppEntry.js then run npm start -- -c.
+
+	I must have been using an old package.json setup 😅
+
+Invariant violation: react-navigation
+=====================================
+
+[https://stackoverflow.com/questions/53367195/invariant-violation-the-navigation-prop-is-missing-for-this-navigator]
+
+Basically, need to export an AppContainer instead of a navigator in navigator.js: 
+
+	const App = createAppContainer(RootNavigator);
+
+	export default App;
+
+ScreenOrientation.allow is deprecated
+=====================================
+
+Replace: 
+
+	// Expo.ScreenOrientation.allow(Expo.ScreenOrientation.Orientation.PORTRAIT);
+	await Expo.ScreenOrientation.allowAsync(Expo.ScreenOrientation.Orientation.PORTRAIT);
+
+
+App header is missing
+=====================
+
+Probably the upgrade to react-navigation 3.0.9 has affected the way this has to be done too. Indeed this is it. 
+
+Have to change navigationOptions to defaultNavigationOptions on every call to createStackNavigator. 
+
+
+Production: babelHelpers.applyDecoratedDescriptor is not a function
+===================================================================
+
+This only happens in production mode (press p in expo-cli to trigger). 
+
+Tried this solution, but it doesn't seem to be working: https://stackoverflow.com/questions/51212618/how-to-use-mobx-in-react-native-0-56-babel-7-with-decorators
+
+No way to make this work. The sooner I move from the decorators, the better. This is bad, it hampers upgrading for the players app. I'll have to recheck this one entirely after the refactor. 
+
+
+Drawer now keeps inactive tabs in memory by default
+===================================================
+
+Previously when using the drawer navigator screens would unmount when inactive, and when you 
+switch back to them you’d need to re-render the entire thing. In tabs these stay in memory 
+as you would expect, so once you switch to the screen once it’s faster to go back there again 
+and you don’t lose your place in a scroll view or anything. Drawer now behaves the same way, 
+but you can go back to the old behavior if you like by passing in unmountInactiveRoutes: true 
+in the drawer navigation configuration.
+
+https://reactnavigation.org/blog/#installation
+
+
+
+_callListeners.bind undefined (DrawerView.js)
+=============================================
+
+Got this after changing to production and messing with babel configs to solve the previous issue. It solved after clearing bundler cache and restarting everything. 

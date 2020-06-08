@@ -1,0 +1,57 @@
+{
+  "expo": {
+    "name": "MyGol Árbitros",
+    "description": "MyGol - Árbitros",
+    "slug": "mygol-referees",
+    "icon": "assets/IOS-app-icon.png",
+    "version": "1.1.0",
+    "privacy": "unlisted",
+    "scheme": "mygolreferees",
+    "orientation": "portrait",
+    "splash": {
+      "image": "assets/splash-xxhdpi.png",
+      "backgroundColor": "#FFFFFF",
+      "resizeMode": "cover"
+    },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
+    "notification": {},
+    "updates": {
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 10000
+    },
+    "ios": {
+      "icon": "assets/IOS-app-icon.png",
+      "supportsTablet": false,
+      "bundleIdentifier": "es.tsmgroup.mygol.referee",
+      "buildNumber": "1.1.0",
+      "config": {
+        "usesNonExemptEncryption": false
+      },
+      "infoPlist": {}
+    },
+    "android": {
+      "icon": "assets/android-app-icon.png",
+      "package": "es.tsmgroup.mygol.referee",
+      "googleServicesFile": "./google-services.json",
+      "versionCode": 110,
+      "config": {},
+      "splash": {
+        "resizeMode": "cover",
+        "ldpi": "assets/splash-ldpi.png",
+        "mdpi": "assets/splash-mdpi.png",
+        "hdpi": "assets/splash-hdpi.png",
+        "xhdpi": "assets/splash-xhdpi.png",
+        "xxhdpi": "assets/splash-xxhdpi.png",
+        "xxxhdpi": "assets/splash-xxxhdpi.png"
+      },
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
+    }
+  }
+}
