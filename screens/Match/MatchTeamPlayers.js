@@ -28,6 +28,9 @@ const TeamPlayerNav = inject('store')(
           const matchNumber = matchData && matchData.apparelNumber > 0 && matchData.apparelNumber;
           const number = teamData && teamData.apparelNumber;
           const attends = matchData && matchData.status === 1;
+          const currentTeam = player.teamData.idTeam;
+          const playerHasSanctionOnCurrentTeam =
+            player.idSanction > 0 && currentTeam === player.idSanctionTeam;
 
           return (
             <View style={style.Player}>
@@ -42,7 +45,7 @@ const TeamPlayerNav = inject('store')(
               </View>
               <TouchableOpacity onPress={this.handlePress}>
                 <Text style={GS.font.touchable}>{player.name + ' ' + player.surname}</Text>
-                {player.idSanction > 0 && (
+                {playerHasSanctionOnCurrentTeam && (
                   <Text style={style.SanctionedPlayer}>{Localize('TeamPlayer.Sanctioned')}</Text>
                 )}
               </TouchableOpacity>
