@@ -11,85 +11,79 @@ import { setOrganizationHeader } from '../../store/OrganizationStore';
 import TeamDataDetailed from './TeamDataDetailed';
 import { headerNavigationOptions } from './Header';
 
-
-
 class PlayerDetails extends Component {
+  static navigationOptions = headerNavigationOptions;
 
-    static navigationOptions = headerNavigationOptions;
+  componentDidMount = () => {
+    this.loadData();
 
-    componentDidMount = () => {
-        this.loadData();
+    setOrganizationHeader(this.props.store, this.props.navigation);
+  };
 
-        setOrganizationHeader(this.props.store, this.props.navigation);
+  componentDidUpdate = () => {
+    this.loadData();
+  };
+
+  loadData = async () => {
+    const p = this.props;
+
+    let idUser = p.navigation.getParam('idUser');
+
+    if (!idUser) {
+      return; // Render the owner that is already loaded.
     }
 
-    componentDidUpdate = () => {
-        this.loadData();
-    }
+    // if (!idUser) {
+    //     idUser = await AsyncStorage.getItem('auth.id');
+    //     navigationOptions = null;
+    // }
 
+    const { current } = p.store.players;
+    if (current && current.idUser === idUser) return;
 
-    loadData = async () => {
-        const p = this.props;
+    if (this.idUser === idUser) return;
 
-        let idUser = p.navigation.getParam('idUser');
+    this.idUser = idUser;
+    await p.store.players.getUser(idUser);
+  };
 
-        if (!idUser) {
-            return;    // Render the owner that is already loaded.
-        }
+  render() {
+    debugger;
+    const p = this.props;
 
-        // if (!idUser) {
-        //     idUser = await AsyncStorage.getItem('auth.id');
-        //     navigationOptions = null;
-        // }
+    const player = !p.navigation.getParam('idUser') ? p.store.players.owner : p.store.players.current;
 
-        const { current } = p.store.players;
-        if (current && current.idUser === idUser) return;
+    if (!player) return <FsSpinner lMsg="Loading player data" />;
 
-        if (this.idUser === idUser) return;
-        
-        this.idUser = idUser;
-        await p.store.players.getUser(idUser);
-    }
-    
+    const isOwner = p.ui.auth.idUser === player.idUser;
 
-    render() {
-        const p = this.props;
-        
-        const player = (!p.navigation.getParam('idUser')) ? p.store.players.owner : p.store.players.current;
-    
-        if (!player) return <FsSpinner lMsg='Loading player data' />
-
-        const isOwner = (p.ui.auth.idUser === player.idUser);
-
-        return (
-            <ScrollView style={{backgroundColor: gColors.headerBack}}>
-                <StatusBar barStyle='light-content' />
-                <View style={GlobalStyles.MainViewCenter}>
-                    <PlayerData style={style.PlayerData} data={player} age motto />
-                    <View style={style.TeamData}>
-                        <TeamDataDetailed data={player.teamData} />
-                    </View>
-                    <Awards data={player} />
-                    <PlayerStats data={player} />
-                    <PlayerActions data={player} navigation={p.navigation} isOwner={isOwner} />
-                    {/* {isOwner ? <News /> : null } */}
-                </View>
-            </ScrollView>
-        )
-    }
+    return (
+      <ScrollView style={{ backgroundColor: gColors.headerBack }}>
+        <StatusBar barStyle="light-content" />
+        <View style={GlobalStyles.MainViewCenter}>
+          <PlayerData style={style.PlayerData} data={player} age motto />
+          <View style={style.TeamData}>
+            <TeamDataDetailed data={player.teamData} />
+          </View>
+          <Awards data={player} />
+          <PlayerStats data={player} />
+          <PlayerActions data={player} navigation={p.navigation} isOwner={isOwner} />
+          {/* {isOwner ? <News /> : null } */}
+        </View>
+      </ScrollView>
+    );
+  }
 }
 
 const style = StyleSheet.create({
-    View: {
-        
-    },
-    TeamData: {
-        marginVertical: 20,
-    },
-    PlayerData: {
-        paddingTop: 10,
-        paddingBottom: 0
-    }
+  View: {},
+  TeamData: {
+    marginVertical: 20,
+  },
+  PlayerData: {
+    paddingTop: 10,
+    paddingBottom: 0,
+  },
 });
 
 export default inject('store', 'ui')(observer(PlayerDetails));
