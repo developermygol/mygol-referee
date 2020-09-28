@@ -1,5 +1,5 @@
-import axios from "axios";
-import config from "./Config";
+import axios from 'axios';
+import config from './Config';
 
 export const directoryEndPoint = axios.create({
   baseURL: config.reactAppDirectoryApiUrl,
@@ -17,7 +17,7 @@ const apiEndPoint = axios.create({
 // apiEndPoint.interceptors.request.use(logRequest);
 // directoryEndPoint.interceptors.request.use(logRequest);
 
-export const setAxiosEndPoints = (endPoints) => {
+export const setAxiosEndPoints = endPoints => {
   apiEndPoint.defaults.baseURL = endPoints.api;
   config.reactAppStaticUrl = endPoints.prStatic;
   config.reactAppStaticUploadsUrl = endPoints.uploads;
