@@ -64,9 +64,10 @@ class PlayerFicha extends Component {
   handleChangeApparelNumber = async value => {
     const { store } = this.props;
     const player = store.players.current;
+    const match = store.matches.current;
 
     await store.matches.setPlayerApparelNumber(player, value);
-    this.props.navigation.navigate('MatchDetails', { idMatch: player.matchData.idMatch });
+    this.props.navigation.navigate('MatchDetails', { idMatch: match.id });
   };
 
   loadData = flow(function* () {
