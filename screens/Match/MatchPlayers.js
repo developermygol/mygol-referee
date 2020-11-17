@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import MatchTeamPlayers from './MatchTeamPlayers';
-import { gColors } from '../../GlobalStyles';
 import { observer } from 'mobx-react/native';
+
+import MatchTeamPlayers from './MatchTeamPlayers';
+import { nonPlayableRoles } from '../../helpers/helpers';
+import { gColors } from '../../GlobalStyles';
 
 class MatchPlayers extends Component {
   render() {
@@ -12,13 +14,29 @@ class MatchPlayers extends Component {
 
     const { homePlayers, visitorPlayers } = match;
 
+    const filterNonPlayableRoles = players => {
+      return players.filter(player => {
+        // console.log(player.teamData.fieldPosition);
+        // console.log(nonPlayableRoles);
+        return !nonPlayableRoles.includes(player.teamData.fieldPosition);
+      });
+    };
+
     return (
       <ScrollView contentContainerStyle={style.ContainerView}>
         <View style={[style.Column, style.RightBorder]}>
-          <MatchTeamPlayers players={homePlayers} team={match.homeTeam} match={match} />
+          <MatchTeamPlayers
+            players={filterNonPlayableRoles(homePlayers)}
+            team={match.homeTeam}
+            match={match}
+          />
         </View>
         <View style={[style.Column]}>
-          <MatchTeamPlayers players={visitorPlayers} team={match.visitorTeam} match={match} />
+          <MatchTeamPlayers
+            players={filterNonPlayableRoles(visitorPlayers)}
+            team={match.visitorTeam}
+            match={match}
+          />
         </View>
       </ScrollView>
     );
