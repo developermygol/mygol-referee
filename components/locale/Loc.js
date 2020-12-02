@@ -1,12 +1,13 @@
-import { Component } from "react";
-import Translations from "./Translations";
+import { Component } from 'react';
+import Translations from './Translations';
 
 // import { DangerZone } from 'expo'; // Change for SDK version
 // const { Localization } = DangerZone; // Change for SDK version
 // https://docs.expo.io/versions/latest/sdk/localization/
-import * as Localization from "expo-localization";
+import * as Localization from 'expo-localization';
+import { interpolateString, interpolateStringMultiple } from '../Utils';
 
-const DefaultLanguage = "es"; // Should match initial value set in Store
+const DefaultLanguage = 'es'; // Should match initial value set in Store
 let globalLang = DefaultLanguage;
 let langSet = false;
 
@@ -39,11 +40,33 @@ export function LocalizeOrDefault(key) {
 
 export function Localize(key, lang) {
   //if (!langSet) console.log("2", key);
-  if (!key) return "";
+  if (!key) return '';
 
   if (!lang) lang = globalLang;
   const translated = Translations[lang][key];
-  return translated === undefined ? "__" + key + "__" : translated;
+  return translated === undefined ? '__' + key + '__' : translated;
+}
+
+export function LocalizeI(key, ...args) {
+  if (!key) return '';
+
+  const translations = Translations[globalLang];
+  if (translations) {
+    const translated = translations[key];
+    if (translated) return interpolateString(translated, ...args);
+  }
+  return '__' + key + '__';
+}
+
+export function LocalizeIMultyple(key, ...args) {
+  if (!key) return '';
+
+  const translations = Translations[globalLang];
+  if (translations) {
+    const translated = translations[key];
+    if (translated) return interpolateStringMultiple(translated, ...args);
+  }
+  return '__' + key + '__';
 }
 
 export default Loc;
