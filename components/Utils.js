@@ -348,7 +348,7 @@ export const getFormattedTime = time => {
 
 export const interpolateString = (str, ...args) => {
   let result = str;
-  debugger;
+
   for (let i = 0; i < args.length; ++i) result = result.replace('{' + i + '}', args[i]);
 
   return result;

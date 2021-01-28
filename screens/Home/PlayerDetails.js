@@ -48,7 +48,6 @@ class PlayerDetails extends Component {
   };
 
   render() {
-    debugger;
     const p = this.props;
 
     const player = !p.navigation.getParam('idUser') ? p.store.players.owner : p.store.players.current;

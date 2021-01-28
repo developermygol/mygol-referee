@@ -12,16 +12,35 @@ let globalLang = DefaultLanguage;
 let langSet = false;
 
 export function setLang(lang, component) {
-  globalLang = lang;
+   // 🚧🚧🚧 Not all langues implemented yet rever to default es
+   switch(lang) {
+    case 'es': 
+    case 'en':
+      globalLang = lang;
+      break;
+    case 'ca_ES':
+    case 'ca_ES':
+    case 'pt_PT':
+    case 'fr':
+    case 'ar':
+      globalLang = 'es';
+      break;
+    default: globalLang = 'es'
+}
 
+  // globalLang = lang;  // Uncomment when all languages are available. 
+  
   // Force app render
   if (component) component.forceUpdate();
 }
 
 export async function setDeviceLangAsync() {
-  // const lang = Localization.locale;
-  const lang = await Localization.getLocalizationAsync(); // Change for 34 SDK version
-  if (lang && Translations[lang]) setLang(lang);
+  const lang = Localization.locale;
+  // const lang = await Localization.getLocalizationAsync(); // Change for 34 SDK version
+  
+  const baseLanguage = lang && lang.split(/_|-/)[0]; // 🚧🚧🚧 TEmporary
+  
+  if (lang && Translations[baseLanguage]) setLang(baseLanguage);
 
   langSet = true;
 }
