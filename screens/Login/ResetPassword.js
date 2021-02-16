@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { ImageBackground, KeyboardAvoidingView, Text, View, StyleSheet, Alert } from 'react-native';
+import {
+  ImageBackground,
+  KeyboardAvoidingView,
+  Text,
+  View,
+  StyleSheet,
+  Alert,
+  StatusBar,
+} from 'react-native';
 import { observer, inject } from 'mobx-react/native';
 import t from 'tcomb-form-native';
 
@@ -67,6 +75,7 @@ class ResetPassword extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior="padding">
+        <StatusBar barStyle="light-content" />
         <ImageBackground source={Background} style={[GlobalStyles.ScreenImageBackground, styles.View]}>
           <Text style={styles.IntroTitle}>{Localize('PasswordForgotTitle')}</Text>
           <Text style={styles.IntroText}>{Localize('PasswordForgotIntro')}</Text>

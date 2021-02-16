@@ -17,6 +17,11 @@ export default {
   'LoginPassword.Validation': 'La contraseña no puede estar vacía',
   PasswordTitle: 'Contraseña',
   PasswordIntro: 'Para completar el inicio de sesión',
+  PasswordForgotten: '¿Ha olvidado la contrasenya?',
+  PasswordForgotTitle: 'Reset password',
+  PasswordForgotIntro: 'Enter the email address to request a password reset',
+  PasswordForgotBack: 'go back to the login screen',
+  PasswordForgotSuccess: 'An email with password reset instructions has been sent to the address provided.',
 
   // Pin:
   Pin: 'PIN',
@@ -212,6 +217,8 @@ export default {
   'Match.NoComments': 'No hay observaciones',
   'Match.GoToCloseRecord': 'Ir a cierre de acta',
   'Match.Record': 'Acta de partido',
+  "Rests": "rests", 
+  "Penalties": "Penalties", 
 
   'Match.Status': 'Estado',
   MatchStatus1: 'Partido creado',
@@ -247,6 +254,7 @@ export default {
   MatchEventType64: 'Tarjeta verde',
   MatchEventType65: 'Tarjeta naranja',
   MatchEventType70: 'MVP',
+  "MatchEventType80": "Tanda de penalties", 
   MatchEventType100: 'Acta cerrada',
 
   'Match.NoReferees': 'No hay árbitros',
@@ -273,6 +281,13 @@ export default {
 
   'KeyPad.Enter': '➡',
   'KeyPad.Delete': '⌫',
+
+  "Chrono": "Chrono", 
+  "Chrono.MatchDuration": "DURATION {0}", 
+  "Chrono.Remaining": "LEFT", 
+  "Chrono.Status0": "NOT STARTED", 
+  "Chrono.Status1": "PLAYING", 
+  "Chrono.Status2": "PAUSED", 
 
   // Awards
   AwardType1: 'MVP',

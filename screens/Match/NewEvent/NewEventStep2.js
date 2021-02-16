@@ -32,6 +32,7 @@ const matchEventTypes = [
   64,
   65,
   70,
+  80,
   100,
 ];
 
@@ -71,12 +72,10 @@ class NewEventStep2 extends Component {
           <EventButton type={62} size={4} onPress={this.handleEventPressed} />
           <EventButton type={63} size={4} onPress={this.handleEventPressed} />
           <EventButton type={64} size={4} onPress={this.handleEventPressed} />
-          <EventButton type={65} size={4} onPress={this.handleEventPressed} />
         </View>
         <View style={style.ButtonRow}>
+          <EventButton type={65} size={4} onPress={this.handleEventPressed} />
           <EventButton type={30} size={4} onPress={this.handleEventPressed} />
-          {/* Added injury events and grouped cards into 4 group */}
-          <EventButton type={50} size={4} onPress={this.handleEventPressed} />
           <EventButton type={70} size={4} onPress={this.handleEventPressed} />
         </View>
 
@@ -95,7 +94,13 @@ class NewEventStep2 extends Component {
         <View style={style.ButtonRow}>
           <EventButton type={17} size={4} onPress={this.handleEventPressed} />
           <EventButton type={18} size={4} onPress={this.handleEventPressed} />
+          <EventButton type={50} size={4} onPress={this.handleEventPressed} />
           {/* <EventButton type={100} size={4} onPress={this.handleEventPressed} /> */}
+        </View>
+
+        <View style={style.ButtonRow}>
+          {/*MatchEventType80*/}
+          <EventButton type={80} size={4} onPress={this.handleEventPressed} />
         </View>
       </ScrollView>
     );

@@ -17,12 +17,14 @@ class NewEventStep1 extends Component {
     const p = this.props;
     const ev = p.store.matches.currentEvent;
 
+    if (p.crhonoMinutes) this.handleTextChanged(crhonoMinutes);
+
     if (!ev) return <InfoBox lMsg="Events.NoEvent" />;
 
     return (
       <View style={style.View}>
         <NumericInput
-          value={0}
+          value={this.props.chronoMinutes || 0}
           onChange={this.handleTextChanged}
           onEnter={this.handleSubmit}
           title="Events.Minute"

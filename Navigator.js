@@ -28,6 +28,7 @@ import CloseRecord from './screens/Match/CloseRecord';
 import EditApparelNumber from './screens/Match/EditApparelNumber';
 import PersonalData from './screens/Drawer/PersonalData';
 import Terms from './screens/Drawer/Terms';
+import ResetPassword from './screens/Login/ResetPassword';
 
 setDeviceLangAsync();
 
@@ -89,6 +90,7 @@ const LoginNavigator = createStackNavigator(
   {
     Login: Login,
     Password: Password,
+    ResetPassword: ResetPassword,
     RegistrationPin: RegistrationPin,
   },
   {

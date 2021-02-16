@@ -19,11 +19,6 @@ export default {
     "LoginPassword.Validation": "Password cannot be empty", 
     "PasswordTitle": "Password", 
     "PasswordIntro": "To complete the sign in process", 
-    PasswordForgotten: 'Forgot password?',
-    PasswordForgotTitle: 'Reset password',
-    PasswordForgotIntro: 'Enter the email address to request a password reset',
-    PasswordForgotBack: 'go back to the login screen',
-    PasswordForgotSuccess: 'An email with password reset instructions has been sent to the address provided.',
 
     // Pin: 
     "Pin": "PIN", 

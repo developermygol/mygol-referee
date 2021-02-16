@@ -12,6 +12,7 @@ import { gColors, ScrollableTabViewProps } from '../../GlobalStyles';
 import { Ionicons } from '@expo/vector-icons';
 import { getIconPrefix } from '../../components/Utils';
 import MatchMinutes from './MatchMinutes';
+import MatchChrono from './MatchChrono';
 
 class MatchDetails extends Component {
   static instance = null;
@@ -65,6 +66,12 @@ class MatchDetails extends Component {
         <ScrollableTabView {...ScrollableTabViewProps} initialPage={1}>
           <MatchPlayers key={2} tabLabel={Localize('Players')} match={match} />
           <MatchEvents key={1} tabLabel={Localize('Events')} match={match} />
+          <MatchChrono
+            key={3}
+            tabLabel={Localize('Chrono')}
+            match={match}
+            navigation={this.props.navigation}
+          />
           <MatchMinutes key={4} tabLabel={Localize('Minutes')} match={match} />
         </ScrollableTabView>
       </View>

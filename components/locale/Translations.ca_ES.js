@@ -221,6 +221,7 @@
   MatchEventType63: 'Card3',
   MatchEventType64: 'Card4',
   MatchEventType65: 'Card5',
+  "MatchEventType80": "Penaty shootout", 
   MatchEventType100: 'Acta tancada',
 
   'Match.NoReferees': 'No hi ha àrbitres',

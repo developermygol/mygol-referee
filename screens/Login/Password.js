@@ -10,6 +10,7 @@ import {
   AsyncStorage,
   ImageBackground,
   Platform,
+  StatusBar,
 } from 'react-native';
 import Button from '../../components/common/Button';
 import { StackActions, NavigationActions } from 'react-navigation';
@@ -55,6 +56,12 @@ class Password extends Component {
     },
   };
 
+  handleResetPassword = async () => {
+    const email = await AsyncStorage.getItem('auth.email');
+    const nav = this.props.navigation;
+    nav.navigate('ResetPassword', { email });
+  };
+
   handleSubmit = async () => {
     const data = this.form.getValue();
     if (!data) {
@@ -91,9 +98,13 @@ class Password extends Component {
   render() {
     return (
       <KeyboardAvoidingView behavior={isIOS() ? 'padding' : 'height'}>
+        <StatusBar barStyle="light-content" />
         <ImageBackground source={Background} style={[GlobalStyles.ScreenImageBackground, style.View]}>
           <Text style={style.IntroTitle}>{Localize('PasswordTitle')}</Text>
-          <Text style={style.IntroText}>{Localize('PasswordIntro')}</Text>
+          {/* <Text style={style.IntroText}>{Localize('PasswordIntro')}</Text> */}
+          <Text style={style.ResetText} onPress={this.handleResetPassword}>
+            {Localize('PasswordForgotten')}
+          </Text>
 
           <Form
             ref={c => (this.form = c)}
@@ -136,6 +147,12 @@ const style = StyleSheet.create({
     margin: 10,
     textAlign: 'center',
     color: gColors.loginText,
+  },
+  ResetText: {
+    margin: 10,
+    textAlign: 'center',
+    color: gColors.loginText,
+    textDecorationLine: 'underline',
   },
   Button: {
     flex: 1,
