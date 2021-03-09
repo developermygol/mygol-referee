@@ -388,6 +388,10 @@ export default {
   'Loading team details': 'Cargando equipo...',
   'Loading ranking': 'Cargando ranking...',
 
+  // Notices
+  "Notices.Alert.Title": "Player cannot attend the match becouse he has pending notices:",
+  "Notices.Alert.Info": "The player must acknowledge these pending notices before attending the match.",
+
   // Terms and conditions
   "Terms.Updated": "There is a new revision of the terms and conditions. Please review them before continuing", 
   "Terms.NoOrgDetails": "The organizer hasn't set the data for the terms and conditions yet", 

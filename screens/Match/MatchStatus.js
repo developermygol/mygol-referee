@@ -33,9 +33,11 @@ class MatchStatus extends Component {
         ) : (
           <Text style={style.NoScore}>---</Text>
         )}
-        <Text style={style.Penalty}>{`${Localize('Penalties')} ${
-          match.homeScore - match.visibleHomeScore
-        } - ${match.visitorScore - match.visibleVisitorScore}`}</Text>
+        {hasShootout && (
+          <Text style={style.Penalty}>{`${Localize('Penalties')} ${
+            match.homeScore - match.visibleHomeScore
+          } - ${match.visitorScore - match.visibleVisitorScore}`}</Text>
+        )}
         <Text style={style.Date}>{getShortMatchDate(match.startTime)}</Text>
         <Text style={style.Status}>{Localize('MatchStatus' + match.status)}</Text>
 

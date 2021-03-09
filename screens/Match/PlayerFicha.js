@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView, StatusBar, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, ScrollView, StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { observable, flow, decorate } from 'mobx';
 import { inject, observer } from 'mobx-react/native';
 import { gColors, gMetrics } from '../../GlobalStyles';
@@ -55,10 +55,33 @@ class PlayerFicha extends Component {
   handleAttendanceChange = async value => {
     const { store } = this.props;
     const player = store.players.current;
+    const match = store.matches.current;
 
-    await store.matches.setPlayerAttendance(player, value);
+    // 🚧 Validate player notices playerteamacceptednotices/{idPlayer}/{idTeam}/{idTournament}
+    const { data: palyerNotices } = await axios.get(
+      `matches/playermatchnotices/${player.id}/${player.teamData.idTeam}/${match.id}/${match.idTournament}`
+    );
+
+    const hasAcceptedAllRelevantNotices = this.handleValidatePlayerNotices(palyerNotices, match.startTime);
+
+    if (hasAcceptedAllRelevantNotices) await store.matches.setPlayerAttendance(player, value);
 
     //this.props.navigation.goBack();
+  };
+
+  handleValidatePlayerNotices = (playerNotices, startTime) => {
+    if (playerNotices.length === 0) return true;
+
+    const relevantNotAcceptedNotices = playerNotAcceptedNotices(playerNotices, startTime);
+
+    if (relevantNotAcceptedNotices.length === 0) return true;
+
+    const alertMessage = `${Localize('Notices.Alert.Title')}\n\n${relevantNotAcceptedNotices
+      .map(n => `${n.notice.name}\n\n`)
+      .join('')}${Localize('Notices.Alert.Info')}`;
+
+    Alert.alert('', alertMessage);
+    return false;
   };
 
   handleChangeApparelNumber = async value => {
