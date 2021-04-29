@@ -191,6 +191,7 @@ export default {
     "TeamPlayers.NoPlayers": "No players in team", 
     "Team.NoTournamentContext": "--", 
     "Team.NoTeamInTournament": "(Team.T)", 
+    "TeamPlayer.Sanctioned": '(sanctioned)',
 
 
     // Rankings

@@ -10,6 +10,7 @@ import axios from '../../axios';
 import InfoBox from '../../components/common/InfoBox';
 import ErrorBox from '../../components/common/ErrorBox';
 import PlayerAttendanceSwitch from './PlayerAttendanceSwitch';
+import { playerNotAcceptedNotices } from '../../helpers/helpers';
 
 class FichaField extends Component {
   render() {
@@ -71,7 +72,7 @@ class PlayerFicha extends Component {
 
   handleValidatePlayerNotices = (playerNotices, startTime) => {
     if (playerNotices.length === 0) return true;
-
+    debugger;
     const relevantNotAcceptedNotices = playerNotAcceptedNotices(playerNotices, startTime);
 
     if (relevantNotAcceptedNotices.length === 0) return true;
