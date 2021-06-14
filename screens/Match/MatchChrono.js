@@ -13,9 +13,17 @@ const MatchChrono = ({ match, navigation }) => {
   const [timer, status, resume, stop, reset] = useChrono();
   const isTimerPlaying = status === 1;
 
+  const [chronoType, setChronoType] = useState('asc');
+
+  const { duration } = match;
+
   const handleNewEvent = () => {
     navigation.navigate('CreateEvent', { minutes: getMinuteFromTimer(timer) });
   };
+
+  const handleChangeChronoType = () => (chronoType === 'asc' ? setChronoType('desc') : setChronoType('asc'));
+
+  console.log(chronoType);
 
   return (
     <View style={styles.View}>
@@ -23,7 +31,9 @@ const MatchChrono = ({ match, navigation }) => {
         style={{ ...GlobalStyles.ScrollView, ...styles.View }}
         contentContainerStyle={styles.ScrollContainer}
       >
-        <Text style={styles.Centered}>{LocalizeI('Chrono.MatchDuration', match.duration)}</Text>
+        <View onStartShouldSetResponder={handleChangeChronoType}>
+          <Text style={styles.Centered}>{LocalizeI('Chrono.MatchDuration', duration)}</Text>
+        </View>
         {/* CHRONO */}
         <Text style={isTimerPlaying ? styles.Timer : styles.TimerPaused}>{displayTimer(timer)}</Text>
         <Text style={styles.Centered}>{chronoStatusString(status)}</Text>

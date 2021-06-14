@@ -227,7 +227,7 @@ export default {
     "Match.Record": "Match record", 
     "Rests": "rests", 
     "Penalties": "Penalties", 
-
+    'Match.Fouls': 'Fouls',
 
     "Match.Status": "Status", 
     "MatchStatus1": "Match created", 
@@ -256,9 +256,13 @@ export default {
     "MatchEventType32": "Goal in own", 
     "MatchEventType33": "Corner", 
     "MatchEventType34": "Foul", 
+    "MatchEventType35": "Goal against",
+    "MatchEventType36": "Cumulative foul",
     "MatchEventType40": "Penalty", 
     "MatchEventType41": "Penalty missed", 
     "MatchEventType42": "Penalty stopped", 
+    "MatchEventType43": "Double penalty",
+    "MatchEventType44": "Time out",
     "MatchEventType50": "Injury", 
     "MatchEventType61": "Yellow card", 
     "MatchEventType62": "Red card", 
@@ -269,7 +273,10 @@ export default {
     "MatchEventType80": "Penaty shootout", 
     "MatchEventType100": "Record closed", 
 
-    "Match.NoReferees": "No referees set", 
+    "Match.NoReferees": "No referees set",
+    
+    "Match.Starter": "Starter",
+    "Match.Captain": "Captain",
 
     "PenaltyShootOut": "Penalty shootout", 
     "PenaltyShootOut.Hint": "Enter the result of the penalty shootout for each team", 

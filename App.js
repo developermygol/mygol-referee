@@ -3,7 +3,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { AppLoading /*ScreenOrientation*/ } from 'expo';
 import * as ScreenOrientation from 'expo-screen-orientation'; // SDK37
 import { Provider } from 'mobx-react/native';
+import { Provider as ProvaiderRedux } from 'react-redux';
 import Store from './store/Store';
+import store from './store-redux/store';
 import UiStore from './store/UiStore';
 import { setupPushNotifications } from './components/PushNotifications';
 import RootNavigator from './Navigator';
@@ -39,9 +41,11 @@ export default class App extends React.Component {
       );
 
     return (
-      <Provider store={Store} ui={UiStore}>
-        <RootNavigator />
-      </Provider>
+      <ProvaiderRedux store={store}>
+        <Provider store={Store} ui={UiStore}>
+          <RootNavigator />
+        </Provider>
+      </ProvaiderRedux>
     );
   }
 }

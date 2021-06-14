@@ -13,6 +13,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { getIconPrefix } from '../../components/Utils';
 import MatchMinutes from './MatchMinutes';
 import MatchChrono from './MatchChrono';
+import { startLoadMatch } from '../../store-redux/actions/matches';
+import { connect } from 'react-redux';
+import { startLoadTournamentModes } from '../../store-redux/actions/tournamentModes';
+import { setActiveTournament, startLoadTournaments } from '../../store-redux/actions/tournaments';
 
 class MatchDetails extends Component {
   static instance = null;
@@ -35,15 +39,21 @@ class MatchDetails extends Component {
     ),
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     instance = this;
-
+    const idMatch = this.props.navigation.getParam('idMatch');
+    // 🚧💥🚧 Multiples organizations issue
+    await this.props.onLoadTournamentsModes();
+    const tournaments = await this.props.onLoadTournaments();
+    const match = await this.props.onLoadMatch(idMatch);
+    this.props.onLoadActiveTournament(tournaments.find(t => t.id === match.idTournament));
     this.loadData();
   };
 
-  loadData = () => {
+  loadData = async () => {
     const p = this.props;
     const idMatch = p.navigation.getParam('idMatch');
+
     p.store.matches.actions.get(idMatch);
   };
 
@@ -86,4 +96,11 @@ const style = StyleSheet.create({
   },
 });
 
-export default withNavigation(inject('store')(observer(MatchDetails)));
+const mapDispatchToProps = dispatch => ({
+  onLoadTournamentsModes: () => dispatch(startLoadTournamentModes()),
+  onLoadTournaments: () => dispatch(startLoadTournaments()),
+  onLoadActiveTournament: tournamentId => dispatch(setActiveTournament(tournamentId)),
+  onLoadMatch: matchId => dispatch(startLoadMatch(matchId)),
+});
+
+export default connect(null, mapDispatchToProps)(withNavigation(inject('store')(observer(MatchDetails))));

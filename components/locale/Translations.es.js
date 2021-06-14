@@ -218,7 +218,8 @@ export default {
   'Match.GoToCloseRecord': 'Ir a cierre de acta',
   'Match.Record': 'Acta de partido',
   "Rests": "rests", 
-  "Penalties": "Penalties", 
+  'Penalties': 'Penalties', 
+  'Match.Fouls': 'Faltas',
 
   'Match.Status': 'Estado',
   MatchStatus1: 'Partido creado',
@@ -244,9 +245,13 @@ export default {
   MatchEventType32: 'Gol en propia',
   MatchEventType33: 'Corner',
   MatchEventType34: 'Falta',
+  MatchEventType35: "Gol en propia",
+  MatchEventType36: "Falta acumulativa",
   MatchEventType40: 'Penalty',
   MatchEventType41: 'Penalty fallado',
   MatchEventType42: 'Penalty parado',
+  MatchEventType43: "Doble penalty",
+  MatchEventType44: "Tiempo muerto",
   MatchEventType50: 'Lesión',
   MatchEventType61: 'Tarjeta amarilla',
   MatchEventType62: 'Tarjeta roja',
@@ -260,6 +265,11 @@ export default {
   'Match.NoReferees': 'No hay árbitros',
   'Match.EditApparelNumber.Title': 'Editar dorsal',
   'Match.EditApparelNumber.SubTitle': 'Dorsal que llevara el jugador durante el partido actual.',
+
+  "Match.NoReferees": "Arbritros no asignados",
+  
+  "Match.Starter": "Titular",
+  "Match.Captain": "Captain",
 
   'Events.AddNew': 'Añadir incidencia',
   'Events.Minute': 'Minuto',

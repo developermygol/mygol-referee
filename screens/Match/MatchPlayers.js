@@ -1,47 +1,41 @@
-import React, { Component } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
-import { observer } from 'mobx-react/native';
+import React from 'react';
+import { View, StyleSheet, ScrollView } from 'react-native';
 
 import MatchTeamPlayers from './MatchTeamPlayers';
 import { nonPlayableRoles } from '../../helpers/helpers';
 import { gColors } from '../../GlobalStyles';
+import { useSelector } from 'react-redux';
 
-class MatchPlayers extends Component {
-  render() {
-    const p = this.props;
-    const { match } = p;
-    if (!match) return null;
+const MatchPlayers = () => {
+  const { activeMatch } = useSelector(state => state.matches);
 
-    const { homePlayers, visitorPlayers } = match;
+  if (!activeMatch) return null;
 
-    const filterNonPlayableRoles = players => {
-      return players.filter(player => {
-        // console.log(player.teamData.fieldPosition);
-        // console.log(nonPlayableRoles);
-        return !nonPlayableRoles.includes(player.teamData.fieldPosition);
-      });
-    };
+  const { homePlayers, visitorPlayers, homeTeam, visitorTeam } = activeMatch;
 
-    return (
-      <ScrollView contentContainerStyle={style.ContainerView}>
-        <View style={[style.Column, style.RightBorder]}>
-          <MatchTeamPlayers
-            players={filterNonPlayableRoles(homePlayers)}
-            team={match.homeTeam}
-            match={match}
-          />
-        </View>
-        <View style={[style.Column]}>
-          <MatchTeamPlayers
-            players={filterNonPlayableRoles(visitorPlayers)}
-            team={match.visitorTeam}
-            match={match}
-          />
-        </View>
-      </ScrollView>
-    );
-  }
-}
+  const filterNonPlayableRoles = players => {
+    return players.filter(player => {
+      // console.log(player.teamData.fieldPosition);
+      // console.log(nonPlayableRoles);
+      return !nonPlayableRoles.includes(player.teamData.fieldPosition);
+    });
+  };
+
+  return (
+    <ScrollView contentContainerStyle={style.ContainerView}>
+      <View style={[style.Column, style.RightBorder]}>
+        <MatchTeamPlayers players={filterNonPlayableRoles(homePlayers)} team={homeTeam} match={activeMatch} />
+      </View>
+      <View style={[style.Column]}>
+        <MatchTeamPlayers
+          players={filterNonPlayableRoles(visitorPlayers)}
+          team={visitorTeam}
+          match={activeMatch}
+        />
+      </View>
+    </ScrollView>
+  );
+};
 
 const style = StyleSheet.create({
   ContainerView: {
@@ -60,4 +54,4 @@ const style = StyleSheet.create({
   },
 });
 
-export default observer(MatchPlayers);
+export default MatchPlayers;
