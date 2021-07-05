@@ -427,7 +427,7 @@ export default {
     "Loading terms": "Loading terms...", 
 
     // Notices
-    "Notices.Alert.Title": "Player cannot attend the match becouse he has pending notices:",
+    "Notices.Alert.Title": "Player cannot attend the match because he has pending notices:",
     "Notices.Alert.Info": "The player must acknowledge these pending notices before attending the match.",
     
     // Terms and conditions

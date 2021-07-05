@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text, ScrollView } from 'react-native';
 
 import { useChrono, chronoStatusString } from '../../components/hooks/useChrono';
@@ -10,20 +10,13 @@ import IconButton from '../../components/common/IconButton';
 import { displayTimer, getMinuteFromTimer } from '../../utils/utils';
 
 const MatchChrono = ({ match, navigation }) => {
-  const [timer, status, resume, stop, reset] = useChrono();
-  const isTimerPlaying = status === 1;
-
-  const [chronoType, setChronoType] = useState('asc');
-
   const { duration } = match;
+  const [timer, status, type, resume, stop, reset, changeType] = useChrono(duration);
+  const isTimerPlaying = status === 1;
 
   const handleNewEvent = () => {
     navigation.navigate('CreateEvent', { minutes: getMinuteFromTimer(timer) });
   };
-
-  const handleChangeChronoType = () => (chronoType === 'asc' ? setChronoType('desc') : setChronoType('asc'));
-
-  console.log(chronoType);
 
   return (
     <View style={styles.View}>
@@ -31,11 +24,16 @@ const MatchChrono = ({ match, navigation }) => {
         style={{ ...GlobalStyles.ScrollView, ...styles.View }}
         contentContainerStyle={styles.ScrollContainer}
       >
-        <View onStartShouldSetResponder={handleChangeChronoType}>
-          <Text style={styles.Centered}>{LocalizeI('Chrono.MatchDuration', duration)}</Text>
-        </View>
+        <Text style={styles.Centered}>{LocalizeI('Chrono.MatchDuration', duration)}</Text>
         {/* CHRONO */}
-        <Text style={isTimerPlaying ? styles.Timer : styles.TimerPaused}>{displayTimer(timer)}</Text>
+        <View style={styles.TimerView} onStartShouldSetResponder={changeType}>
+          {type === 'desc' && (
+            <Text style={isTimerPlaying ? styles.TimerInfo : styles.TimerInfoPuased}>
+              {LocalizeI('Chrono.Remaining')}
+            </Text>
+          )}
+          <Text style={isTimerPlaying ? styles.Timer : styles.TimerPaused}>{displayTimer(timer)}</Text>
+        </View>
         <Text style={styles.Centered}>{chronoStatusString(status)}</Text>
         {isTimerPlaying ? (
           <View style={styles.Buttons}>
@@ -62,6 +60,23 @@ const styles = StyleSheet.create({
   View: {
     flex: 1,
     backgroundColor: gColors.iconButtonBackground,
+  },
+  TimerView: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  TimerInfo: {
+    alignSelf: 'flex-start',
+    marginVertical: 50,
+    marginRight: 10,
+    color: gColors.text1,
+  },
+  TimerInfoPuased: {
+    alignSelf: 'flex-start',
+    marginVertical: 50,
+    marginRight: 10,
+    color: gColors.iconButtonBorder,
   },
   Centered: {
     textAlign: 'center',

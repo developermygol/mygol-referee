@@ -143,7 +143,8 @@ const PlayerFicha = ({ navigation }) => {
       idPlayer: player.id,
       idDay: match.idDay,
       apparelNumber: value,
-      attended: player.matchData && player.matchData.status,
+      // attended: player.matchData && player.matchData.status,
+      attended: true,
     };
 
     await dispatch(updateMatchPlayerAttendance(req));

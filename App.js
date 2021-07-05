@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { AppLoading /*ScreenOrientation*/ } from 'expo';
+// import { AppLoading /*ScreenOrientation*/ } from 'expo';
+import AppLoading from 'expo-app-loading'; // SDK 40 expo install expo-app-loading
 import * as ScreenOrientation from 'expo-screen-orientation'; // SDK37
 import { Provider } from 'mobx-react/native';
 import { Provider as ProvaiderRedux } from 'react-redux';

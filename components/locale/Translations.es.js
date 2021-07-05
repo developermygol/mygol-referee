@@ -293,6 +293,7 @@ export default {
   'KeyPad.Delete': '⌫',
 
   "Chrono": "Chrono", 
+  "Chrono.TimerInfo": "LEFT", 
   "Chrono.MatchDuration": "DURATION {0}", 
   "Chrono.Remaining": "LEFT", 
   "Chrono.Status0": "NOT STARTED", 
